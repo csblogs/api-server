@@ -1,6 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { initDbLogger, database } from 'csblogs-common';
+import 'babel-core/register'; // babel-core and babel-polyfill enable ES7 features
+import 'babel-polyfill';
 
 import log from './log';
 import configureHelmet from './middleware/configure-helmet';
