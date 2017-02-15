@@ -4,8 +4,12 @@ import * as organisations from './organisation-controller';
 const router = express.Router(); // eslint-disable-line new-cap
 
 router.get('/', async (req, res) => {
-  const allOrganisations = await organisations.getAll();
-  res.send(allOrganisations);
+  try {
+    const allOrganisations = await organisations.getAll();
+    return res.send(allOrganisations);
+  } catch (ex) {
+    return res.status(500).json({ error: ex.message });
+  }
 });
 
 // router.post('/', async (req, res) => {
