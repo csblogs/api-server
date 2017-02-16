@@ -21,7 +21,7 @@ export async function getAll() {
       raw: true
     });
   } catch (error) {
-    log.error({ error }, 'Error getting list of all Organisations');
+    log.error({ error: error.message }, 'Error getting list of all Organisations');
     throw error;
   }
 }
