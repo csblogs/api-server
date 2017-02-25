@@ -1,6 +1,6 @@
 version: '2.0'
 services:
-    csblogs-postgres: 
+    csblogs-postgres:
         image: postgres
         environment:
             - POSTGRES_USER=
@@ -9,7 +9,7 @@ services:
         build: .
         command: build-and-run
         restart: always
-        ports: 
+        ports:
             - "80:80"
         links:
             - csblogs-postgres
