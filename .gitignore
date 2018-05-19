@@ -34,3 +34,5 @@ node_modules
 
 /app
 docker-compose.yml
+.env
+.DS_Store
