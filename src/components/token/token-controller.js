@@ -11,7 +11,12 @@ function getGitHubUserDetails(accessToken) {
       throw new Error(res.statusText);
     })
     .then(res => res.json())
-    .then(json => ({ authenticationProvider: 'github', authenticationId: `${json.id}` }));
+    .then(json => {
+      if (!json || !json.id) {
+        throw new Error('GitHub authenticationId undefined');
+      }
+      return { authenticationProvider: 'github', authenticationId: json.id };
+    });
 }
 
 function getWordpressUserDetails(accessToken) {
@@ -26,8 +31,13 @@ function getWordpressUserDetails(accessToken) {
       }
       throw new Error(res.statusText);
     })
-    .then(res => res.json)
-    .then(json => ({ authenticationProvider: 'wordpress', authenticationId: `${json.ID}` }));
+    .then(res => res.json())
+    .then(json => {
+      if (!json || !json.ID) {
+        throw new Error('WordPress authenticationId undefined');
+      }
+      return { authenticationProvider: 'wordpress', authenticationId: json.ID };
+    });
 }
 
 function getStackExchangeUserDetails(accessToken, accessAppKey) {
@@ -39,7 +49,12 @@ function getStackExchangeUserDetails(accessToken, accessAppKey) {
       throw new Error(res.statusText);
     })
     .then(res => res.json())
-    .then(json => ({ authenticationProvider: 'stack_exchange', authenticationId: `${json.items[0].user_id}` }));
+    .then(json => {
+      if (!json || !json.items || !json.items.length || !json.items[0].user_id) {
+        throw new Error('Stack Exchange authenticationId undefined');
+      }
+      return { authenticationProvider: 'stack_exchange', authenticationId: json.items[0].user_id };
+    });
 }
 
 function generateCSBToken(user) {
